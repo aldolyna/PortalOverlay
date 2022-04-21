@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // Dark overlay appears if switching thread in between onCreate() and fragment transaction
         Handler(Looper.getMainLooper()).post {
-            attachPortal() // Unwrap this method out of pos {} and overlay disappears
+            attachPortal() // Unwrap this method out of post {} and overlay disappears
         }
     }
 

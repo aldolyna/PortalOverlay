@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.getcapacitor.CapConfig
 import com.portaloverlay.R
 import dagger.hilt.android.AndroidEntryPoint
 import io.ionic.portals.PortalFragment
@@ -36,7 +37,7 @@ class PortalOverlayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadContent()
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.state.collect {
                     when (it) {
                         is PortalOverlayViewModel.State.Content -> attachPortal(it)
@@ -67,7 +68,12 @@ class PortalOverlayFragment : Fragment() {
             .create()
             .also { PortalManager.addPortal(it) }
 
-        val fragment = PortalFragment(portal)
+        val fragment = PortalFragment(portal).also {
+            it.setConfig(CapConfig.Builder(requireContext())
+                .setInitialFocus(false)
+                .create()
+            )
+        }
 
         childFragmentManager.commit {
             replace(R.id.container, fragment)

@@ -41,7 +41,10 @@ android {
 
 dependencies {
 
-    implementation "io.ionic:portals:0.5.0"
+    implementation "com.capacitorjs:core:3.5.1-test-5579-1"
+    implementation('io.ionic:portals:0.5.0') {
+        exclude group: 'com.capacitorjs', module: 'core'
+    }
 
     implementation "androidx.core:core-ktx:1.7.0"
     implementation "androidx.fragment:fragment-ktx:1.4.1"

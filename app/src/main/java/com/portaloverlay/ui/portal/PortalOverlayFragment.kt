@@ -68,12 +68,7 @@ class PortalOverlayFragment : Fragment() {
             .create()
             .also { PortalManager.addPortal(it) }
 
-        val fragment = PortalFragment(portal).also {
-            it.setConfig(CapConfig.Builder(requireContext())
-                .setInitialFocus(false)
-                .create()
-            )
-        }
+        val fragment = PortalFragment(portal)
 
         childFragmentManager.commit {
             replace(R.id.container, fragment)
